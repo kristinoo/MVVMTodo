@@ -22,7 +22,7 @@
         android:layout_toStartOf="@id/label_priority"
         android:layout_toEndOf="@+id/check_box_completed"
         android:ellipsize="end"
-        android:gravity="center|center_vertical"
+        android:gravity="start|center_vertical"
         android:maxLines="1"
         android:textColor="@color/black"
         tools:text="Example item" />

@@ -27,7 +27,7 @@
             android:id="@+id/text_view_date_created"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            tools:text="Date created: " />
+            tools:text="Date created:" />
 
     </LinearLayout>
 
@@ -38,6 +38,5 @@
         android:layout_gravity="bottom|end"
         android:layout_margin="16dp"
         android:src="@drawable/ic_check_mark" />
-
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -27,7 +27,7 @@ abstract class TaskDatabase : RoomDatabase() {
                 dao.insert(Task("Web app", completed = true))
                 dao.insert(Task("Discrete_math"))
                 dao.insert(Task("Meeting at 17^00", important = true))
-                dao.insert(Task("Wake up", important = true))
+                dao.insert(Task("Wake up", completed = true))
             }
         }
     }

@@ -9,6 +9,7 @@ import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -16,6 +17,7 @@ import com.codinginflow.mvvmtodo.R
 import com.codinginflow.mvvmtodo.data.SortOrder
 import com.codinginflow.mvvmtodo.data.Task
 import com.codinginflow.mvvmtodo.databinding.FragmentTasksBinding
+import com.codinginflow.mvvmtodo.util.exhaustive
 import com.codinginflow.mvvmtodo.util.onQueryTextChanged
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
@@ -60,6 +62,10 @@ class TasksFragment : Fragment(R.layout.fragment_tasks), TasksAdapter.OnItemClic
 
                 }
             }).attachToRecyclerView(recyclerViewTasks)
+
+            fabAddTask.setOnClickListener {
+                viewModel.onAddNewTaskClick()
+            }
         }
 
         viewModel.tasks.observe(viewLifecycleOwner) {
@@ -75,57 +81,65 @@ class TasksFragment : Fragment(R.layout.fragment_tasks), TasksAdapter.OnItemClic
                                 viewModel.onUndoDeleteClick(event.task)
                             }.show()
                     }
-                }
-            }
-        }
-
-        setHasOptionsMenu(true)
-    }
-
-    override fun onItemClick(task: Task) {
-        viewModel.onTasksSelected(task)
-    }
-
-    override fun onCheckBoxClick(task: Task, isChecked: Boolean) {
-        viewModel.onTaskCheckedChanged(task, isChecked)
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.menu_fragment_tasks, menu)
-
-        val searchItem = menu.findItem(R.id.action_search)
-        val searchView = searchItem.actionView as SearchView
-
-        searchView.onQueryTextChanged {
-            viewModel.searchQuery.value = it
-        }
-
-        viewLifecycleOwner.lifecycleScope.launch {
-            menu.findItem(R.id.action_hide_completed_tasks).isChecked =
-                viewModel.preferencesFlow.first().hideCompleted
+                    is TasksViewModel.TasksEvent.NavigateToAddTaskScreen -> {
+                        val action = TasksFragmentDirections.actionTasksFragmentToAddEditTaskFragment(null, "New Task")
+                        findNavController().navigate(action)
+                    }
+                    is TasksViewModel.TasksEvent.NavigateToEditTaskScreen -> {
+                        val action = TasksFragmentDirections.actionTasksFragmentToAddEditTaskFragment(event.task, "Edit Task")
+                        findNavController().navigate(action)
+                    }
+                }.exhaustive
         }
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when (item.itemId) {
-            R.id.action_sort_by_name -> {
-                viewModel.onSortOrderSelected(SortOrder.BY_NAME)
-                true
-            }
-            R.id.action_sort_by_date_created -> {
-                viewModel.onSortOrderSelected(SortOrder.BY_DATE)
-                true
-            }
-            R.id.action_hide_completed_tasks -> {
-                item.isChecked = !item.isChecked
-                viewModel.onHideCompletedClick(item.isChecked)
-                true
-            }
-            R.id.action_delete_all_completed_tasks -> {
+    setHasOptionsMenu(true)
+}
 
-                true
-            }
-            else -> super.onOptionsItemSelected(item)
-        }
+override fun onItemClick(task: Task) {
+    viewModel.onTasksSelected(task)
+}
+
+override fun onCheckBoxClick(task: Task, isChecked: Boolean) {
+    viewModel.onTaskCheckedChanged(task, isChecked)
+}
+
+override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+    inflater.inflate(R.menu.menu_fragment_tasks, menu)
+
+    val searchItem = menu.findItem(R.id.action_search)
+    val searchView = searchItem.actionView as SearchView
+
+    searchView.onQueryTextChanged {
+        viewModel.searchQuery.value = it
     }
+
+    viewLifecycleOwner.lifecycleScope.launch {
+        menu.findItem(R.id.action_hide_completed_tasks).isChecked =
+            viewModel.preferencesFlow.first().hideCompleted
+    }
+}
+
+override fun onOptionsItemSelected(item: MenuItem): Boolean {
+    return when (item.itemId) {
+        R.id.action_sort_by_name -> {
+            viewModel.onSortOrderSelected(SortOrder.BY_NAME)
+            true
+        }
+        R.id.action_sort_by_date_created -> {
+            viewModel.onSortOrderSelected(SortOrder.BY_DATE)
+            true
+        }
+        R.id.action_hide_completed_tasks -> {
+            item.isChecked = !item.isChecked
+            viewModel.onHideCompletedClick(item.isChecked)
+            true
+        }
+        R.id.action_delete_all_completed_tasks -> {
+
+            true
+        }
+        else -> super.onOptionsItemSelected(item)
+    }
+}
 }

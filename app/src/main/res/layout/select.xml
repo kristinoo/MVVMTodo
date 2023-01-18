@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="4dp">
+
+    <Button
+        android:id="@+id/chosen_tasks_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Priority tasks"
+        android:drawableLeft="@drawable/ic_baseline_star_24"
+        android:textColor="@color/black"
+        android:gravity="start"
+        android:textAllCaps="false"
+        android:background="@color/transparent" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/black"/>
+
+    <Button
+        android:id="@+id/my_task_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Tasks"
+        android:drawableLeft="@drawable/ic_baseline_check_box_outline_blank_24"
+        android:textColor="@color/black"
+        android:textAllCaps="false"
+        android:gravity="start"
+        android:background="@color/transparent"/>
+
+    <Button
+        android:id="@+id/completed_tasks_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Completed"
+        android:drawableLeft="@drawable/ic_baseline_check_box_24"
+        android:textColor="@color/black"
+        android:textAllCaps="false"
+        android:gravity="start"
+        android:background="@color/transparent"/>
+
+
+</LinearLayout>

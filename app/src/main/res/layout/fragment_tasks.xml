@@ -11,22 +11,13 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
-   <!-- <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab_add_task"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_margin="16dp"
-        android:src="@drawable/ic_add" />-->
-
     <com.google.android.material.bottomappbar.BottomAppBar
         android:id="@+id/bottom_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:menu="@menu/bottom_menu"
-        app:navigationIcon="@drawable/ic_baseline_menu_24"
         android:background="@color/lightGray"
-        android:backgroundTint="@color/lightGray"
+        android:backgroundTint="@color/purple_500"
         android:layout_gravity="bottom"/>
 
 
@@ -36,7 +27,7 @@
         android:layout_height="wrap_content"
         android:src="@drawable/ic_add"
         android:contentDescription="create_task"
-        android:backgroundTint="@color/lightGray"
+        android:backgroundTint="@color/purple_500"
         app:borderWidth="0dp"
         app:layout_anchor="@id/bottom_bar"/>
 

@@ -10,7 +10,7 @@ import com.codinginflow.mvvmtodo.data.Task
 import com.codinginflow.mvvmtodo.databinding.ItemTaskBinding
 
 class TasksAdapter(private val listener: OnItemClickListener) :
-    ListAdapter<Task, TasksAdapter.TasksViewHolder>(DiffCallback()) {
+    ListAdapter<Task, TasksAdapter.TasksViewHolder>(DiffCallback()) { // notice the difference between the old and new data from db
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TasksViewHolder {
         val binding = ItemTaskBinding.inflate(LayoutInflater.from(parent.context), parent, false)

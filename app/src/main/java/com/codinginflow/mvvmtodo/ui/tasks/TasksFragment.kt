@@ -26,22 +26,22 @@ import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 
-@AndroidEntryPoint
+@AndroidEntryPoint // punkt входа android
 class TasksFragment : Fragment(R.layout.fragment_tasks), TasksAdapter.OnItemClickListener {
 
-    private val viewModel: TasksViewModel by viewModels()
+    private val viewModel: TasksViewModel by viewModels() // делегат свойства, укол кинжала
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         val binding = FragmentTasksBinding.bind(view)
 
-        val taskAdapter = TasksAdapter(this)
+        val taskAdapter = TasksAdapter(this) // экземпляр адаптера задач
 
         binding.apply {
             recyclerViewTasks.apply {
                 adapter = taskAdapter
-                layoutManager = LinearLayoutManager(requireContext())
+                layoutManager = LinearLayoutManager(requireContext()) //как происходит отображение
                 setHasFixedSize(true)
             }
 

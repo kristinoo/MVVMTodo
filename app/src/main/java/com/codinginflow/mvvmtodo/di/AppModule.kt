@@ -13,15 +13,15 @@ import javax.inject.Qualifier
 import javax.inject.Singleton
 
 @Module
-@InstallIn(ApplicationComponent::class)
+@InstallIn(ApplicationComponent::class) // injections for all project
 object AppModule {
     @Provides
-    @Singleton
+    @Singleton // create only 1 db for all project
     fun provideDatabase(
         app: Application,
         callback: TaskDatabase.Callback
     ) = Room.databaseBuilder(app, TaskDatabase::class.java, "task_database")
-        .fallbackToDestructiveMigration()
+        .fallbackToDestructiveMigration() //if db have no way -> destruct and create new db
         .addCallback(callback)
         .build()
 
@@ -30,7 +30,7 @@ object AppModule {
     @ApplicationScope
     @Provides
     @Singleton
-    fun provideApplicationScope() = CoroutineScope(SupervisorJob())
+    fun provideApplicationScope() = CoroutineScope(SupervisorJob()) // метод занавеса = обеспечить область применения
 }
 @Retention(AnnotationRetention.RUNTIME)
 @Qualifier

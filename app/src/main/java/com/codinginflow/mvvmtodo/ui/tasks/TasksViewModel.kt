@@ -29,6 +29,9 @@ class TasksViewModel @ViewModelInject constructor(
     private val tasksEventChannel = Channel<TasksEvent>()
     val tasksEvent = tasksEventChannel.receiveAsFlow()
 
+    // Свойство потока задач в частном значении taskFlow:
+    //Каждый раз, когда аргумент оператора потока изменяется, поиск запускается с начала
+
     private val tasksFlow = combine(
         searchQuery.asFlow(),
         preferencesFlow

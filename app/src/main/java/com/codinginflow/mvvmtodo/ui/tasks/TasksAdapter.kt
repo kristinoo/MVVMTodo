@@ -24,7 +24,7 @@ class TasksAdapter(private val listener: OnItemClickListener) :
 
     inner class TasksViewHolder(private val binding: ItemTaskBinding) :
         RecyclerView.ViewHolder(binding.root) {
-
+    //Проверка на обновление
         init {
             binding.apply{
                 root.setOnClickListener{

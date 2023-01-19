@@ -25,6 +25,7 @@ class PreferencesManager @Inject constructor(@ApplicationContext context: Contex
     private val dataStore = context.createDataStore("user_preferences")
 
     val preferencesFlow = dataStore.data
+        //проверка исключения
         .catch { exception ->
             if (exception is IOException) {
                 Log.e(TAG, "Error reading preferences", exception)
